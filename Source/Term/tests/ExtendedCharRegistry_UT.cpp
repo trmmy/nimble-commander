@@ -276,6 +276,10 @@ TEST_CASE(PREFIX "IsDoubleWidth")
         {.str=u"⏏\xfe0f", .exp=true},        // ⏏️ 23cf fe0f
         {.str=u"Ｍ", .exp=true},             // Ｍ ff2d
         {.str=u"ね", .exp=true},             // ね 306d
+        {.str=u"が", .exp=true},             // が 304c
+        {.str=u"が", .exp=true},             // が 304b 3099
+        {.str=u"ぽ", .exp=true},             // ぽ 307d
+        {.str=u"ぽ", .exp=true},             // ぽ 307b 309a
         {.str=u"е\x0308", .exp=false},       // е◌̈ 0435 0308
         {.str=u"Ｅ́", .exp=true},             // Ｅ́ ff25 0301
         {.str=u"𐅐", .exp=false},             // 𐅐 d800 dd50

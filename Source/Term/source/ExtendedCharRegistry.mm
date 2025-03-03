@@ -300,6 +300,7 @@ static constexpr std::array<uint64_t, 65536 / 64> BuildPotentiallyComposableChar
                          // Combining Diacritical Marks Supplement  [U+1DC0..U+1DFF]
     set(0x2000, 0x206F); // General Punctuation                     [U+2000..U+206F]
     set(0x20D0, 0x20FF); // Combining Diacritical Marks for Symbols [U+20D0..U+20FF]
+    set(0x3099, 0x309A); // Japanese voiced/semi-voiced sound marks [U+3099..U+309A]
     set(0xD800, 0xDFFF); // High Surrogates                         [U+D800..U+DB7F]
                          // High Private Use Surrogates             [U+DB80..U+DBFF]
                          // Low Surrogates                          [U+DC00..U+DFFF]

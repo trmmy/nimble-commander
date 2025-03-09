@@ -407,9 +407,11 @@ void Listing::BuildFilenames()
         // filename. and .filename
         // in such cases we think there's no extension at all
         uint16_t offset = 0;
-        auto dot_it = current.find_last_of('.');
-        if( dot_it != std::string::npos && dot_it != 0 && dot_it != current.size() - 1 )
-            offset = uint16_t(dot_it + 1);
+        if( (m_UnixModes[i] & m_S_IFMT) != m_S_IFDIR ) {
+            auto dot_it = current.find_last_of('.');
+            if( dot_it != std::string::npos && dot_it != 0 && dot_it != current.size() - 1 )
+                offset = uint16_t(dot_it + 1);
+        }
         m_ExtensionOffsets[i] = offset;
     }
 }

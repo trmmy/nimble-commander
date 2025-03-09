@@ -199,10 +199,15 @@ bool BatchRenamingScheme::ParsePlaceholder(NSString *_ph)
                 continue;
             }
             case 'E': {
+                bool dot_flag = false;
+                if( position > 0 && ([_ph characterAtIndex:position - 1] == '.') ) {
+                    dot_flag = true;
+                }
                 position++;
                 auto v = ParsePlaceholder_TextExtraction(_ph, position);
                 if( !v )
                     break;
+                (v->first).dot_flag = dot_flag;
                 AddInsertExtension(v->first);
                 position += v->second;
                 continue;
@@ -246,6 +251,12 @@ bool BatchRenamingScheme::ParsePlaceholder(NSString *_ph)
                     break;
                 AddInsertCounter(v->first);
                 position += v->second;
+                continue;
+            }
+            case '.': {
+                if( position > 0 && ([_ph characterAtIndex:position - 1] != '[') ) // valid only after [
+                    break;
+                position++;
                 continue;
             }
             default:
@@ -551,6 +562,20 @@ BatchRenamingScheme::ParsePlaceholder_Counter(NSString *_ph,
     return std::make_pair(counter, n);
 }
 
+NSString *BatchRenamingScheme::InsertDotIfNeeded(NSString *_s, const TextExtraction &_te)
+{
+    if( !_te.dot_flag )
+        return _s;
+
+    if( _s.length == 0 )
+        return _s;
+
+    if( [_s characterAtIndex:0] == '.' )
+        return _s;
+
+    return [NSString stringWithFormat:@".%@", _s];
+}
+
 NSString *BatchRenamingScheme::ExtractText(NSString *_from, const TextExtraction &_te)
 {
     auto length = static_cast<unsigned short>(_from.length);
@@ -571,10 +596,10 @@ NSString *BatchRenamingScheme::ExtractText(NSString *_from, const TextExtraction
 
             auto padding = [@"" stringByPaddingToLength:insufficient
                                              withString:(_te.zero_flag ? @"0" : @" ")startingAtIndex:0];
-            return [padding stringByAppendingString:str];
+            return InsertDotIfNeeded([padding stringByAppendingString:str], _te);
         }
         else {
-            return str;
+            return InsertDotIfNeeded(str, _te);
         }
     }
     else if( _te.reverse_range ) {
@@ -589,7 +614,7 @@ NSString *BatchRenamingScheme::ExtractText(NSString *_from, const TextExtraction
             return @"";
 
         auto res = sr.intersection(rr);
-        return [_from substringWithRange:res.toNSRange()];
+        return InsertDotIfNeeded([_from substringWithRange:res.toNSRange()], _te);
     }
     else {
         if( _te.to_last + 1 >= length )
@@ -600,7 +625,7 @@ NSString *BatchRenamingScheme::ExtractText(NSString *_from, const TextExtraction
             return @"";
 
         auto res = Range(static_cast<unsigned short>(start), static_cast<unsigned short>(end - start + 1));
-        return [_from substringWithRange:res.toNSRange()];
+        return InsertDotIfNeeded([_from substringWithRange:res.toNSRange()], _te);
     }
 
     return nil;

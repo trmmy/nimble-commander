@@ -29,6 +29,7 @@ public:
 
         bool space_flag = false;
         bool zero_flag = false;
+        bool dot_flag = false;
     };
 
     struct Counter {
@@ -84,6 +85,8 @@ public:
                              long _default_step,
                              int _default_width,
                              unsigned _default_stripe); // action and number of chars eaten if no errors
+
+    static NSString *InsertDotIfNeeded(NSString *_s, const TextExtraction &_te);
 
     static NSString *ExtractText(NSString *_from, const TextExtraction &_te);
 

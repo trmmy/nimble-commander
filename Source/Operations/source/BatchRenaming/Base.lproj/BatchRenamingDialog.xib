@@ -253,7 +253,7 @@
                     </button>
                     <button toolTip="^E" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nQr-DT-yTz">
                         <rect key="frame" x="112" y="346" width="102" height="27"/>
-                        <buttonCell key="cell" type="push" title="[E] Extension" bezelStyle="rounded" alignment="left" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Fkf-IO-A7D">
+                        <buttonCell key="cell" type="push" title="[.E] .Extension" bezelStyle="rounded" alignment="left" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Fkf-IO-A7D">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>

@@ -250,7 +250,7 @@ using SourceReverseMappingStorage =
 
     // Implement this method to handle any initialization after your window controller's window has
     // been loaded from its nib file.
-    [self InsertStringIntoMask:@"[N].[E]"];
+    [self InsertStringIntoMask:@"[N][.E]"];
     self.isValidRenaming = true;
 
     [self.FilenamesTable registerForDraggedTypes:@[g_MyPrivateTableViewDataType]];
@@ -449,7 +449,7 @@ using SourceReverseMappingStorage =
 
 - (IBAction)OnInsertExtensionPlaceholder:(id) [[maybe_unused]] _sender
 {
-    [self InsertStringIntoMask:@"[E]"];
+    [self InsertStringIntoMask:@"[.E]"];
 }
 
 - (IBAction)OnInsertDatePlaceholder:(id) [[maybe_unused]] _sender
